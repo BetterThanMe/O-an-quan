@@ -7,18 +7,22 @@
 </head>
 <style type="text/css">
 	.bigbox{
-		background: white;
+		position: absolute;
 		width: 60px;
 		height: 66px;
-		border: groove;
+		top: 250px;
 		text-align: center;
+		font-size: 30px;
+		color: green;
 	}
 	.box{
-		background: white;
+		position: relative;
+		color: green;
 		width: 30px;
 		height: 30px;
-		border: groove;
 		text-align: center;
+		font-size: 30px;
+		cursor: pointer;
 	}
 	.sign{
 		background-color: yellow;
@@ -27,51 +31,129 @@
 		border: groove;
 		text-align: center;
 	}
+	.container{
+		position: relative;
+	}
+	.part{
+		position: relative;
+		top: 0px;
+		height: 40%;
+		width: 40%;
+		margin-left: auto; 
+		margin-right: auto;
+		display: block;
+		/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+	}
+	.text1{
+  		position: absolute;
+  		top: 46%;
+  		left: 44.5%;
+  		font-size: 18px;
+  		width: 150px;
+  		height: 20px;
+  		text-align: center;
+  		cursor: pointer;
+	}
+	.text2{
+		position: absolute;
+  		top: 60%;
+  		left: 44.5%;
+  		font-size: 18px;
+  		width: 150px;
+  		height: 20px;
+  		text-align: center;
+  		cursor: pointer;	
+	}
+	.text3{
+		position: absolute;
+  		top: 75%;
+  		left: 44.5%;
+  		font-size: 18px;
+  		width: 150px;
+  		height: 20px;
+  		text-align: center;
+  		cursor: pointer;
+	}
+	.intro{
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		border: groove;
+		height: 150px;
+		width: 200px;
+		font-size: 17px;
+		text-align: left;
+		display: none;
+	}
+	.img_table{
+		position: absolute;
+		top: 30px;
+		margin-left: auto; 
+		margin-right: auto;
+		display: block;
+		/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+	}
+	.img_arrow{
+		position: absolute;
+		height: 10%;
+		width: 10%;
+		cursor: pointer;
+	}
 </style>
 <body>
-	<div style="display: inline-flex;">
-		<div class="bigbox" id=0></div> 
+	<div style="display: none;" id = "game">
+
+	<img src="image/background.png" class="img_table">
+	<div style="display: inline-flex;" class="table">
+		<div class="bigbox" style="left: 100px;" id=0></div> 
 		<div>
 			<div style="display: inline-flex;">
-				<div class="box" id=11></div> 	
-				<div class="box" id=10></div>
-				<div class="box" id=9></div>
-				<div class="box" id=8></div>
-				<div class="box" id=7></div>
+				<div class="box" style="top: 200px; left: 220px;" id=11></div> 	
+				<div class="box" style="top: 200px; left: 290px;" id=10></div>
+				<div class="box" style="top: 200px; left: 360px;" id=9></div>
+				<div class="box" style="top: 200px; left: 430px;" id=8></div>
+				<div class="box" style="top: 200px; left: 500px;" id=7></div>
 			</div>
 			<div></div>
 			<div style="display: inline-flex;">
-				<div class="box" id=1></div> 	
-				<div class="box" id=2></div>
-				<div class="box" id=3></div>
-				<div class="box" id=4></div>
-				<div class="box" id=5></div>
+				<div class="box" style="top: 260px; left: 220px;" id=1></div> 	
+				<div class="box" style="top: 260px; left: 290px;" id=2></div>
+				<div class="box" style="top: 260px; left: 360px;" id=3></div>
+				<div class="box" style="top: 260px; left: 430px;" id=4></div>
+				<div class="box" style="top: 260px; left: 500px;" id=5></div>
 			</div>
 		</div>
-		<div class="bigbox" id=6></div> 
+		<div class="bigbox" style="left: 700px;" id=6></div> 
 
-		<input type="text" id = "where" style="border: groove; width: 60px; height: 30px; text-align: center;"> 
+		<input type="text" id = "where" style="position: absolute; border: groove; width: 60px; height: 30px; text-align: center; display: block; top: 50px; left: 700px"> 
 		<div style="display: inline-flex;">
-			<div class="sign" id = "l">LEFT</div>
-			<div class="sign" id = "r">RIGHT</div>
+			<img src="image/arrowleft.png" id = "l" class="img_arrow" style="top: 40px; left: 480px;">
+			<img src="image/arrowleft.png" id = "r" class="img_arrow" style="top: 40px; left: 580px;">
 		</div>
 	</div>
-	<div style="display: inline-flex;">
-		<div style="border: groove; width: 40px; height: 40px;" id = "think">Try</div>
-		<div style="height: 10px; width: 40px; border: white;"></div>
-		<div>
-			<div style="display: inline-flex;">
-				<div style="width: 100px; height: 30px; border: groove;">Human score: </div>
-				<div style="width: 30px; height: 30px;" id = "human_score"></div>
-			</div>
-			<div style="display: inline-flex;">
-				<div style="width: 100px; height: 30px; border: groove;">Comp score: </div>
-				<div style="width: 30px; height: 30px;" id = "comp_score"></div>
-			</div>
-		</div>
-	</div>
-	<div style="font-size: 60px; color: green;" id = "result"></div>
-	<script type="text/javascript" src="javascript.js"></script>
 
+	<div style="position: absolute; width: 30px; height: 30px; top: 420px; left: 490px; font-size: 30px; color: LightGreen;" id = "human_score"></div>
+
+	<div style="position: absolute; width: 30px; height: 30px; top: 100px; left: 310px; font-size: 30px; color: LightGreen;" id = "comp_score"></div>
+
+	<img src="image/bulb.png" style="position: absolute; width: 10%px; height: 10%; top: 80px; left: 150px; cursor: pointer;" id = "think">
+
+
+	</div>
+
+	<div style="font-size: 60px; color: green;" id = "result"></div>
+
+	<div class="container" id= "list" style="display: block;">
+		<img src="image/opengame.png" class="part">
+		<div class="text1" id = "start">Start new game</div>
+		<div class="text2" id = "guild">How to play</div>
+		<div class="text3" id = "exit" onclick="window.close()">Exit</div>
+		<ul class="intro" id = "how">
+			<li>Chose the direction right or left</li>
+			<li>Double click the block to go </li>
+			<li>If you have more score, you win</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="javascript.js"></script>
 </body>
 </html>
