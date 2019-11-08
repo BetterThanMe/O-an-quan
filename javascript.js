@@ -59,6 +59,8 @@ var  a_table ={
 			if (this.blocks[i].kind==1)
 				document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString();
 		}
+		document.getElementById("human_score").innerHTML = this.score[1];
+		document.getElementById("comp_score").innerHTML  = this.score[0];
 	},
 	fix_state: function(side){
 		var d = 0;
@@ -75,6 +77,18 @@ var  a_table ={
 			if (side==-1) x = 0
 			else x = 1;
 			this.score[x] -=5;
+		}
+	},
+	fix_score: function(){
+		var number0 = 0;
+		var number1 = 0;
+		if (this.terminal_check()==1){
+			for (var i = 0; i<=11; i++){
+					if (this.blocks[i].side==-1) number0+=this.blocks[i].number_pebble
+					if (this.blocks[i].side== 1) number1+=this.blocks[i].number_pebble;
+				} 
+			this.score[1]+= number1;
+			this.score[0]+= number0;
 		}
 	}
 };
@@ -263,13 +277,14 @@ computer.eval_greed = function(state){
 			score_max = score;
 		}
 	}
-	return 2*(score_max[0] - score_max[1]);
+	return (score_max[0] - score_max[1]);
 
 }
 computer.eval_one_more_step = function(state){
 	for (var i = 0; i< computer.Action(state).length; ++i){
+		state.fix_score();
 		if (computer.Result(state, computer.Action(state)[i]).terminal_check()==1 && state.score[1]>state.score[0]) 
-			return -30;
+			return -200;
 	}
 	return 0;
 }
@@ -277,8 +292,11 @@ computer.eval = function(state){
 	var point = 0;
 	//state.fix_state(1);
 	var number = 0;
-	if (state.terminal_check()==1 && state.score[0]>state.score[1]) point += 1000;
-	if (state.terminal_check()==1 && state.score[0]<state.score[1]) point -= 1000;
+	if (state.terminal_check()==1){
+		state.fix_score();
+		if (state.score[0]>state.score[1]) point += 1000;
+		if (state.score[0]<state.score[1]) point -= 1000;
+	} 
 	if (state.score[0]!=state.score[0]) point+= state.score[0] - state.score[1];
 	for (var i = 0; i<=11; i++){
 		if (state.blocks[i].side==-1) number+=state.blocks[i].number_pebble;
@@ -304,12 +322,7 @@ for (var i = 0; i<=11; i++){
 			number0 = 0;
 			number1 = 0;
 			if (human.table.terminal_check()==1){
-				for (var i = 0; i<=11; i++){
-					if (state.blocks[i].side==-1) number0+=state.blocks[i].number_pebble
-					if (state.blocks[i].side== 1) number1+=state.blocks[i].number_pebble;
-				} 
-				human.table.score[1]+= number1;
-				human.table.score[0]+= number0;
+				human.table.fix_score();
 				var str;
 				if (human.table.score[0]>human.table.score[1]){
 					str = "You lose this time!"+ human.table.score[1].toString()+" - "+human.table.score[0].toString();
@@ -362,13 +375,7 @@ document.getElementById("think").onclick = function(){
 	this.style.border = "thick solid #0000FF";
 	let number0= 0, number1 = 0;
 	if (computer.table.terminal_check()==1){
-		for (var i = 0; i<=11; i++){
-			if (state.blocks[i].side==-1) number0+=state.blocks[i].number_pebble
-			if (state.blocks[i].side== 1) number1+=state.blocks[i].number_pebble;
-		} 
-		human.table.score[1]+= number1;
-		human.table.score[0]+= number0;
-
+		computer.table.fix_score();
 		var str;
 		if (human.table.score[0]>human.table.score[1]){
 			str = "You lose this time!"+ human.table.score[1].toString()+" - "+human.table.score[0].toString();
@@ -388,14 +395,14 @@ document.getElementById("think").onclick = function(){
 	//a_table.score = [0,0];
 }
 document.getElementById("think").onmouseout = function(){
-	this.style.border = "groove";
+	this.style.border = "none";
 }
 //**************UI**********************
 document.getElementById("start").onclick = function(){
 	document.getElementById("game").style.display = "block";
 	human.table.set_a_new_game();
-	a_table.show();
 	a_table.score = [0,0];
+	a_table.show();
 	document.getElementById("list").style.display = "none";
 }
 
