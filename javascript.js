@@ -1,4 +1,5 @@
-//********BULDING BLOCK*********
+
+// //********BULDING BLOCK*********
 function block(num, kind_name, which_side, num_special_pebbles){
 	this.number_pebble = num; //the number of pebble
 	this.kind = kind_name; // big or small ~ 1 or 0
@@ -23,7 +24,7 @@ var  a_table ={
 
 		this.blocks[0] = new block(0, 1, 0, 1);
 		this.blocks[6] = new block(0, 1, 0, 1);
-
+		this.score = [0,0];
 	},
 	terminal_check: function(){
 			if (this.blocks[0].number_pebble==0 && this.blocks[0].num_special_pebble ==0 
@@ -55,9 +56,38 @@ var  a_table ={
 	},
 	show: function(){
 		for (var i = 0; i<= 11; i++){
-			document.getElementById(i).innerHTML = this.blocks[i].number_pebble;
-			if (this.blocks[i].kind==1)
-				document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString();
+			if (this.blocks[i].number_pebble==0)
+				document.getElementById(i).innerHTML = 0
+			if (this.blocks[i].number_pebble==1)
+				document.getElementById(i).innerHTML = 1+"<img src=\"image/1-pebbel.png\" class='pebbel'>";
+			if (this.blocks[i].number_pebble==2)
+				document.getElementById(i).innerHTML = 2+"<img src=\"image/2-pebbel.png\" class='pebbel'>";
+			if (this.blocks[i].number_pebble==3)
+				document.getElementById(i).innerHTML = 3+"<img src=\"image/3-pebbel.png\" class='pebbel'>";
+			if (this.blocks[i].number_pebble==4)
+				document.getElementById(i).innerHTML = 4+"<img src=\"image/4-pebbel.png\" class='pebbel'>";
+			if (this.blocks[i].number_pebble==5)
+				document.getElementById(i).innerHTML = 5+"<img src=\"image/5-pebbel.png\" class='pebbel'>";
+			if (this.blocks[i].number_pebble==6)
+				document.getElementById(i).innerHTML = 6+"<img src=\"image/6-pebbel.png\" class='pebbel'>";
+			if (this.blocks[i].number_pebble>6)
+				document.getElementById(i).innerHTML = this.blocks[i].number_pebble+"<img src=\"image/multiple-pebbel.png\" class='pebbel'>";
+			
+			if (this.blocks[i].kind==1&&this.blocks[i].num_special_pebble>0){
+				if (this.blocks[i].number_pebble==0)
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/1-bigpebbel.png\" class=\"bigpebbel\">";
+				if (this.blocks[i].number_pebble==1)
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/2-bigpebbel.png\" class=\"bigpebbel\">";
+				if (this.blocks[i].number_pebble==2)
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/3-bigpebbel.png\" class=\"bigpebbel\">";
+				if (this.blocks[i].number_pebble==3)
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/4-bigpebbel.png\" class=\"bigpebbel\">";
+				if (this.blocks[i].number_pebble==4)
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/5-bigpebbel.png\" class=\"bigpebbel\">";
+				if (this.blocks[i].number_pebble>4)
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/multiple-bigpebbel.png\" class=\"bigpebbel\">";
+			}
+				
 		}
 		document.getElementById("human_score").innerHTML = this.score[1];
 		document.getElementById("comp_score").innerHTML  = this.score[0];
@@ -401,7 +431,6 @@ document.getElementById("think").onmouseout = function(){
 document.getElementById("start").onclick = function(){
 	document.getElementById("game").style.display = "block";
 	human.table.set_a_new_game();
-	a_table.score = [0,0];
 	a_table.show();
 	document.getElementById("list").style.display = "none";
 }
