@@ -1,5 +1,4 @@
-
-// //********BULDING BLOCK*********
+//********BULDING BLOCK*********
 function block(num, kind_name, which_side, num_special_pebbles){
 	this.number_pebble = num; //the number of pebble
 	this.kind = kind_name; // big or small ~ 1 or 0
@@ -24,7 +23,7 @@ var  a_table ={
 
 		this.blocks[0] = new block(0, 1, 0, 1);
 		this.blocks[6] = new block(0, 1, 0, 1);
-		this.score = [0,0];
+
 	},
 	terminal_check: function(){
 			if (this.blocks[0].number_pebble==0 && this.blocks[0].num_special_pebble ==0 
@@ -72,20 +71,21 @@ var  a_table ={
 				document.getElementById(i).innerHTML = 6+"<img src=\"image/6-pebbel.png\" class='pebbel'>";
 			if (this.blocks[i].number_pebble>6)
 				document.getElementById(i).innerHTML = this.blocks[i].number_pebble+"<img src=\"image/multiple-pebbel.png\" class='pebbel'>";
-			
 			if (this.blocks[i].kind==1&&this.blocks[i].num_special_pebble>0){
 				if (this.blocks[i].number_pebble==0)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/1-bigpebbel.png\" class=\"bigpebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/1-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==1)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/2-bigpebbel.png\" class=\"bigpebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/2-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==2)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/3-bigpebbel.png\" class=\"bigpebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/3-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==3)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/4-bigpebbel.png\" class=\"bigpebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/4-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==4)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/5-bigpebbel.png\" class=\"bigpebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/5-bigpebbel.png\" class=\"pebbel\">";
+				if (this.blocks[i].number_pebble==5)
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/6-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble>4)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/multiple-bigpebbel.png\" class=\"bigpebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+" & "+this.blocks[i].num_special_pebble.toString()+"<img src=\"image/multiple-bigpebbel.png\" class=\"pebbel\">";
 			}
 				
 		}
@@ -181,15 +181,31 @@ class player{
 					state.blocks[index].number_pebble = 0;
 				}
 				human.table.show();
-				if (this.who_is_playing==-1) x = 0
-				else x = 1;
+				if (this.who_is_playing==-1){
+					x = 0;
+					document.getElementById("flag1").style.display = "none";
+					document.getElementById("flag0").style.display = "block";
+				}
+				else{
+					x = 1;
+					document.getElementById("flag0").style.display = "none";
+					document.getElementById("flag1").style.display = "block";
+				} 
 				//console.log(score);
 				return state.score[x] +=score;
 			}
 		}
 		human.table.show();
-		if (this.who_is_playing==-1) x = 0
-		else x = 1;
+		if (this.who_is_playing==-1){
+			x = 0;
+			document.getElementById("flag1").style.display = "none";
+			document.getElementById("flag0").style.display = "block";
+		}
+		else{
+			x = 1;
+			document.getElementById("flag0").style.display = "none";
+			document.getElementById("flag1").style.display = "block";
+		} 
 		//console.log(score);
 		return state.score[x] +=score;
 
@@ -236,6 +252,7 @@ function min(a,b){
 	else return b;
 }
 
+var next_greed = [], next_step = [];
 computer.think = function(){
 	var state = computer.make_a_copy_state(computer.table);
 	var v, i = 0, action;
@@ -263,7 +280,7 @@ computer.greed = function(state){
 }
 
 computer.max_value = function(i, state, alpha, beta){
-	if (state.terminal_check()==1||i>5) return computer.eval(state);
+	if (state.terminal_check()==1||i>5) return computer.eval(i,state);
 	state.fix_state(-1);
 	console.log("max_value i = "+i.toString());
 	var v = - Infinity;
@@ -286,7 +303,8 @@ computer.max_value = function(i, state, alpha, beta){
 
 computer.min_value = function(i, state, alpha, beta){
 	console.log("min_value i = "+i.toString());
-	if (state.terminal_check()==1||i>=5) return computer.eval(state);
+	next_greed[i]  = computer.eval_greed(state);
+	if (state.terminal_check()==1||i>=5) return computer.eval(i,state)+next_greed[1];//++next_step[1]
 	state.fix_state(1);
 	var v = Infinity;
 	for (var j =0; j< human.Action(state).length; j++){
@@ -300,8 +318,8 @@ computer.min_value = function(i, state, alpha, beta){
 }
 computer.eval_greed = function(state){
 	var value = -Infinity, score, score_max=[0,0];
-	for (var i = 0; i< computer.Action(state).length; ++i){
-		score = computer.Result(state, computer.Action(state)[i]).score;
+	for (var i = 0; i< human.Action(state).length; ++i){
+		score = human.Result(state, human.Action(state)[i]).score;
 		if (value<score[1]){
 			value = score[1];
 			score_max = score;
@@ -311,31 +329,32 @@ computer.eval_greed = function(state){
 
 }
 computer.eval_one_more_step = function(state){
-	for (var i = 0; i< computer.Action(state).length; ++i){
-		state.fix_score();
-		if (computer.Result(state, computer.Action(state)[i]).terminal_check()==1 && state.score[1]>state.score[0]) 
-			return -200;
+	var new_state;
+	for (var i = 0; i< human.Action(state).length; ++i){
+		new_state = human.Result(state, human.Action(state)[i]);
+		new_state.fix_score();
+		if (new_state.terminal_check()==1 && new_state.score[1]>new_state.score[0]) 
+			return -1000;
 	}
 	return 0;
 }
-computer.eval = function(state){
+computer.eval = function(i, state){
 	var point = 0;
 	//state.fix_state(1);
 	var number = 0;
 	if (state.terminal_check()==1){
 		state.fix_score();
-		if (state.score[0]>state.score[1]) point += 1000;
-		if (state.score[0]<state.score[1]) point -= 1000;
+		if (state.score[0]>state.score[1]) point = 1000;
+		if (state.score[0]<state.score[1]) point = -1000;
+		for (var i = 0; i<=11; i++){
+			if (state.blocks[i].side==-1) number+=state.blocks[i].number_pebble;
+			if (state.blocks[i].side== 1) number-=state.blocks[i].number_pebble;
+		}
 	} 
-	if (state.score[0]!=state.score[0]) point+= state.score[0] - state.score[1];
-	for (var i = 0; i<=11; i++){
-		if (state.blocks[i].side==-1) number+=state.blocks[i].number_pebble;
-		if (state.blocks[i].side== 1) number-=state.blocks[i].number_pebble;
-	}
-
+	if (state.score[0]!=state.score[1]) point+= 2*(state.score[0] - state.score[1]);
 	point+=number;
-	point+=computer.eval_greed(state);
-	point+=computer.eval_one_more_step(state);
+	//point+=computer.eval_greed(state);
+	//point+=computer.eval_one_more_step(state);
 	return point;
 }
 //******************************************************
@@ -431,6 +450,7 @@ document.getElementById("think").onmouseout = function(){
 document.getElementById("start").onclick = function(){
 	document.getElementById("game").style.display = "block";
 	human.table.set_a_new_game();
+	a_table.score = [0,0];
 	a_table.show();
 	document.getElementById("list").style.display = "none";
 }
