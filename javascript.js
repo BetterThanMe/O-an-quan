@@ -73,19 +73,19 @@ var  a_table ={
 				document.getElementById(i).innerHTML = this.blocks[i].number_pebble+"<img src=\"image/multiple-pebbel.png\" class='pebbel'>";
 			if (this.blocks[i].kind==1&&this.blocks[i].num_special_pebble>0){
 				if (this.blocks[i].number_pebble==0)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+"<img src=\"image/1-bigpebbel.png\" class=\"pebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble+1+"<img src=\"image/1-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==1)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+"<img src=\"image/2-bigpebbel.png\" class=\"pebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble+1+"<img src=\"image/2-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==2)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+"<img src=\"image/3-bigpebbel.png\" class=\"pebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble+1+"<img src=\"image/3-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==3)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+"<img src=\"image/4-bigpebbel.png\" class=\"pebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble+1+"<img src=\"image/4-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==4)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+"<img src=\"image/5-bigpebbel.png\" class=\"pebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble+1+"<img src=\"image/5-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble==5)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+"<img src=\"image/6-bigpebbel.png\" class=\"pebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble+1+"<img src=\"image/6-bigpebbel.png\" class=\"pebbel\">";
 				if (this.blocks[i].number_pebble>4)
-					document.getElementById(i).innerHTML = this.blocks[i].number_pebble.toString()+"<img src=\"image/multiple-bigpebbel.png\" class=\"pebbel\">";
+					document.getElementById(i).innerHTML = this.blocks[i].number_pebble+1+"<img src=\"image/multiple-bigpebbel.png\" class=\"pebbel\">";
 			}
 				
 		}
