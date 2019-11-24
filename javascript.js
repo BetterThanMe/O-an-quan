@@ -469,5 +469,7 @@ document.getElementById("back").onclick = function(){
 	computer.table = a_table;
 	human.table = a_table;
 	a_table.show();
+	document.getElementById("flag0").style.display = "none";
+	document.getElementById("flag1").style.display = "block";
 	console.log(a_table);
 }
