@@ -401,10 +401,30 @@ for (var i = 0; i<=11; i++){
 	else if(6<i){
 		document.getElementById(i).ondblclick = function(){
 			this.style.border = "thick solid #0000FF";
+			number0 = 0;
+			number1 = 0;
+			if (a_table.terminal_check()==1){
+				a_table.fix_score();
+				var str;
+				if (a_table.score[0]>a_table.score[1]){
+					str = "You lose this time!"+ human.table.score[1].toString()+" - "+human.table.score[0].toString();
+				}
+				else str = "you win this time! "+ human.table.score[1].toString()+" - "+human.table.score[0].toString();
+				document.getElementById("result").innerHTML = str;
+				document.getElementById("game").style.display= "none";
+				document.getElementById("list").style.display="block";
+			} 
+			else{
+				
 			if (document.getElementById("where").value=="l"){
 				computer.move(computer.table, parseInt(this.id),0);
 			}
 			else computer.move(computer.table, parseInt(this.id),1);
+			computer.score += computer.table.score[1];
+			console.log(computer.table.score);
+			document.getElementById("human_score").innerHTML = computer.table.score[1];
+			document.getElementById("comp_score").innerHTML  = computer.table.score[0];
+			}
 		}
 		document.getElementById(i).onclick = function(){
 			this.style.border = "groove";
