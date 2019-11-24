@@ -7,10 +7,22 @@ function block(num, kind_name, which_side, num_special_pebbles){
 } 
 
 //*****************************************
+var old_state;
 var  a_table ={
 	blocks: [],
 	//who_is_playing = i, // 1: HUMAN, -1: computer
 	score: [0,0],
+	flag_display(){
+		if (document.getElementById("flag1").style.display == "none"){
+			document.getElementById("flag0").style.display = "none";
+			document.getElementById("flag1").style.display = "block";
+		}
+		else{
+			document.getElementById("flag0").style.display = "block";
+			document.getElementById("flag1").style.display = "none";
+		}
+		
+	},
 	set_a_new_game: function(){
 		var i = 0;
 		for (i = 1; i<=5 ; ++i){
@@ -23,6 +35,7 @@ var  a_table ={
 
 		this.blocks[0] = new block(0, 1, 0, 1);
 		this.blocks[6] = new block(0, 1, 0, 1);
+		old_state = this;
 
 	},
 	terminal_check: function(){
@@ -382,7 +395,7 @@ for (var i = 0; i<=11; i++){
 				document.getElementById("list").style.display="block";
 			} 
 			else{
-			
+			old_state = human.make_a_copy_state(human.table);
 			if (document.getElementById("where").value=="l"){
 				human.move(human.table, parseInt(this.id),0);
 			}
@@ -415,7 +428,7 @@ for (var i = 0; i<=11; i++){
 				document.getElementById("list").style.display="block";
 			} 
 			else{
-				
+			old_state = computer.make_a_copy_state(computer.table);	
 			if (document.getElementById("where").value=="l"){
 				computer.move(computer.table, parseInt(this.id),0);
 			}
@@ -439,7 +452,7 @@ document.getElementById("r").onclick = function(){
 	document.getElementById("where").value = "r";
 }
 //***********COMPUTER ACTION****************
-var value, state, action, old_state;
+var value, state, action;
 document.getElementById("think").onclick = function(){
 	this.style.border = "thick solid #0000FF";
 	let number0= 0, number1 = 0;
@@ -489,7 +502,6 @@ document.getElementById("back").onclick = function(){
 	computer.table = a_table;
 	human.table = a_table;
 	a_table.show();
-	document.getElementById("flag0").style.display = "none";
-	document.getElementById("flag1").style.display = "block";
+	a_table.flag_display();
 	console.log(a_table);
 }
