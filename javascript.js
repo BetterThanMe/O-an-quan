@@ -466,6 +466,8 @@ document.getElementById("guild").onmouseout = function(){
 }
 document.getElementById("back").onclick = function(){
 	a_table = old_state;
+	computer.table = a_table;
+	human.table = a_table;
 	a_table.show();
 	console.log(a_table);
 }
